@@ -1,12 +1,16 @@
 // src/index.ts
 
 import express, { Request, Response } from 'express';
-import mysql from 'mysql2/promise'; // Utilize a versão com Promise
+import mysql from 'mysql2/promise';
 
 const app = express();
 const port = 3000;
 
+
 app.use(express.json());
+
+// Resto do código para configurar as rotas e o servidor...
+
 
 // Configuração da conexão com o MySQL
 const db = mysql.createPool({
