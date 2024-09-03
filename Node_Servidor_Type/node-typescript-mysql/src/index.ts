@@ -1,23 +1,22 @@
-// src/index.ts
-
-import express, { Request, Response } from 'express';
-import mysql from 'mysql2/promise';
+const express = require('express');
+import { Request, Response } from 'express';
+import * as mysql from 'mysql2/promise';
+import * as bodyParser from 'body-parser';
+const cors = require('cors');
 
 const app = express();
 const port = 3000;
 
-
-app.use(express.json());
-
-// Resto do código para configurar as rotas e o servidor...
-
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Configuração da conexão com o MySQL
 const db = mysql.createPool({
   host: 'localhost',
   user: 'root',       // Substitua pelo seu usuário do MySQL
-  password: '', // Substitua pela sua senha do MySQL
-  database: 'testdb',   // Substitua pelo nome do seu banco de dados
+  password: '',       // Substitua pela sua senha do MySQL
+  database: 'testdb', // Substitua pelo nome do seu banco de dados
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
