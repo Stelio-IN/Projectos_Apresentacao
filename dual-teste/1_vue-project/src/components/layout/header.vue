@@ -2,7 +2,9 @@
   <header class="header">
     <nav class="navbar navbar-expand-lg bg-dark">
       <div class="container-fluid">
-        <router-link class="navbar-brand text-white" to="/">Meu Site</router-link>
+        <router-link class="navbar-brand text-white" to="/">
+          <img src="../../assets/logo.svg" alt="Logo" class="logo-img">
+        </router-link>
         <button
           class="navbar-toggler"
           type="button"
@@ -47,8 +49,14 @@ export default {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.logo-img {
+  height: 40px; /* Ajuste a altura do logo conforme necessário */
+  width: auto; /* Mantém a proporção da imagem */
+}
+
 .nav-link {
   transition: color 0.3s ease;
+  margin: 0 1rem; /* Adiciona margem horizontal entre os itens de navegação */
 }
 
 .nav-link:hover {

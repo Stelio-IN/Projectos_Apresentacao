@@ -1,25 +1,54 @@
 <template>
 
+<div class="container mt-4">
+    <h1 class="mb-4">Cadastrar Dados</h1>
 
-    <div id="app">
-  
-  
-      <h1>Gestão de Dados</h1>
-  
-      <form @submit.prevent="cadastrarDado">
-        <input v-model="novoDado.nome" placeholder="Nome" required />
-        <input v-model="novoDado.valor" placeholder="Valor" required />
-        <button type="submit">Cadastrar</button>
-      </form>
-  
-      <ul>
-        <li v-for="dado in dados" :key="dado.id">
-          {{ dado.nome }}: {{ dado.valor }}
-          <button @click="editarDado(dado)">Editar</button>
-          <button @click="eliminarDado(dado)">Eliminar</button>
-        </li>
-      </ul>
-    </div>
+    <form @submit.prevent="cadastrarDado">
+      <div class="mb-3">
+        <input
+          id="nome"
+          v-model="novoDado.nome"
+          type="text"
+          class="form-control"
+          placeholder="Nome"
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <input
+          id="valor"
+          v-model="novoDado.valor"
+          type="text"
+          class="form-control"
+          placeholder="Valor"
+          required
+        />
+      </div>
+      <button type="submit" class="btn btn-primary">Cadastrar</button>
+    </form>
+  </div>
+
+    <div class="container mt-4">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Nome</th>
+          <th scope="col">Valor</th>
+          <th scope="col">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="dado in dados" :key="dado.id">
+          <td>{{ dado.nome }}</td>
+          <td>{{ dado.valor }}</td>
+          <td>
+            <button @click="editarDado(dado)" class="btn btn-warning btn-sm me-2">Editar</button>
+            <button @click="eliminarDado(dado)" class="btn btn-danger btn-sm">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   </template>
   
   <script>
