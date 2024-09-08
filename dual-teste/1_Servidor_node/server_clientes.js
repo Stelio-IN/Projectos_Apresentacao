@@ -80,20 +80,20 @@ app.delete('/clientes/:id', (req, res) => {
   });
 });
 
-// Rota para login
-app.get('/clientes/login/:email/:password', (req, res) => {
-  const { email, password } = req.params;
-  const sql = 'SELECT * FROM clientes WHERE email = ? AND password = ?';
-  db.query(sql, [email, password], (err, results) => {
-    if (err) {
-      res.status(500).json({ error: err.message });
-    } else if (results.length > 0) {
-      res.json({ message: 'Login bem-sucedido', user: results[0] });
-    } else {
-      res.status(401).json({ error: 'Credenciais inválidas' });
-    }
+
+// Rota para fazer login
+app.post('/clientes/login', function (req, res) {
+    const { email, password } = req.body;
+    const sql = 'SELECT * FROM clientes WHERE email = ? AND password = ?';
+    db.query(sql, [email, password], (err, results) => {
+      if (err) {
+        res.status(500).json({ error: err.message });
+      } else {
+        res.json(results); // Envia os resultados encontrados
+      }
+    });
   });
-});
+  
 
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
