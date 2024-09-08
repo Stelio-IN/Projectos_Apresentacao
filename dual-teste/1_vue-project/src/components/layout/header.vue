@@ -32,12 +32,12 @@
             </li>
             <li class="nav-item">
               <router-link class="nav-link text-white" to="/Login">Login</router-link>
-              <!-- <router-link class="nav-link text-white" to="/ClienteCrud">Crud</router-link> -->
             </li>
-
           </ul>
-          <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+
+          <!-- Formulário de pesquisa com o v-model para capturar o email -->
+          <form @submit.prevent="buscarCliente" class="d-flex" role="search">
+            <input v-model="email" class="form-control me-2" type="search" placeholder="Search by Email" aria-label="Search" />
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
         </div>
@@ -47,9 +47,36 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
-  name: 'HeaderComponent'
-}
+  name: 'HeaderComponent',
+  data() {
+    return {
+      email: '', // Armazena o email digitado no campo de pesquisa
+      erro: '',  // Para exibir erros, caso ocorra
+    };
+  },
+  methods: {
+    async buscarCliente() {
+      try {
+        // Faz a requisição para buscar o cliente pelo email
+        const response = await axios.get(`http://localhost:3000/clientes/email/${this.email}`);
+
+        // Verifica se o cliente foi encontrado
+        if (response.data) {
+          const cliente = response.data;
+          this.$router.push({ name: 'ClienteCrud', params: { cliente } }); // Redireciona para ClienteCrud com os dados do cliente
+        } else {
+          this.erro = 'Cliente não encontrado!';
+          alert('Cliente não encontrado!');
+        }
+      } catch (error) {
+        this.erro = 'Erro ao buscar cliente. Tente novamente.';
+      }
+    },
+  },
+};
 </script>
 
 <style scoped>

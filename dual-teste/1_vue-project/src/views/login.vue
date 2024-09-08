@@ -27,38 +27,35 @@
   </template>
   
   <script>
-  import axios from "axios";
-  import { useRouter } from "vue-router";
+  import axios from 'axios';
+  import { useRouter } from 'vue-router';
   
   export default {
     data() {
       return {
-        email: "",
-        password: "",
-        erro: "",
+        email: '',
+        password: '',
+        erro: '',
       };
     },
     methods: {
       async fazerLogin() {
         try {
           // Fazendo login via POST
-          const response = await axios.post(
-            `http://localhost:3000/clientes/login`,
-            {
-              email: this.email,
-              password: this.password,
-            }
-          );
+          const response = await axios.post('http://localhost:3000/clientes/login', {
+            email: this.email,
+            password: this.password,
+          });
   
-          // Se o login for bem-sucedido, redirecionar para ClienteCrud
-          if (response.data.length > 0) {
-            const cliente = response.data[0]; // Pega o primeiro cliente retornado
-            this.$router.push({ name: "ClienteCrud", params: { cliente } });
+          // Se o login for bem-sucedido, armazenar o token e redirecionar
+          if (response.data.token) {
+            localStorage.setItem('token', response.data.token); // Armazenar o token
+            this.$router.push({ name: 'ClienteCrud' }); // Redirecionar para a rota desejada
           } else {
-            this.erro = "Email ou senha inválidos!";
+            this.erro = 'Email ou senha inválidos!';
           }
         } catch (error) {
-          this.erro = "Erro ao tentar logar. Tente novamente.";
+          this.erro = 'Erro ao tentar logar. Tente novamente.';
         }
       },
     },

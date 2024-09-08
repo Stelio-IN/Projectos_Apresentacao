@@ -6,15 +6,14 @@
       <div v-if="cliente">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">Dados do Cliente</h5>
+            <h5 class="card-title">Dados do Cliente</h5> <br>
             <p><strong>Nome:</strong> {{ cliente.nome }}</p>
             <p><strong>Email:</strong> {{ cliente.email }}</p>
-            <button class="btn btn-warning" @click="editarCliente">Editar</button>
-            <button class="btn btn-danger ms-2" @click="eliminarCliente">Eliminar</button>
+            <!-- <button class="btn btn-warning" @click="editarCliente">Editar</button>
+            <button class="btn btn-danger ms-2" @click="eliminarCliente">Eliminar</button> -->
           </div>
         </div>
-  
-        <!-- Formulário para editar cliente -->
+        <!--   
         <div v-if="editando" class="mt-4">
           <h2>Editar Cliente</h2>
           <form @submit.prevent="atualizarCliente">
@@ -26,7 +25,7 @@
             </div>
             <button type="submit" class="btn btn-success">Salvar</button>
           </form>
-        </div>
+        </div> -->
       </div>
       <div v-else>
         <p>Carregando dados do cliente...</p>
@@ -59,24 +58,31 @@
       },
       async atualizarCliente() {
         try {
+          const token = localStorage.getItem('token'); // Obtenha o token JWT
           await axios.put(`http://localhost:3000/clientes/${this.cliente.id}`, {
             nome: this.cliente.nome,
             email: this.cliente.email,
-            password: this.cliente.password,
+          }, {
+            headers: { 'Authorization': `Bearer ${token}` } // Inclua o token no cabeçalho
           });
           this.editando = false;
           alert("Cliente atualizado com sucesso!");
         } catch (error) {
           console.error("Erro ao atualizar cliente:", error);
+          alert("Erro ao atualizar cliente. Tente novamente.");
         }
       },
       async eliminarCliente() {
         try {
-          await axios.delete(`http://localhost:3000/clientes/${this.cliente.id}`);
+          const token = localStorage.getItem('token'); // Obtenha o token JWT
+          await axios.delete(`http://localhost:3000/clientes/${this.cliente.id}`, {
+            headers: { 'Authorization': `Bearer ${token}` } // Inclua o token no cabeçalho
+          });
           alert("Cliente eliminado com sucesso!");
           this.$router.push({ name: "Login" });
         } catch (error) {
           console.error("Erro ao eliminar cliente:", error);
+          alert("Erro ao eliminar cliente. Tente novamente.");
         }
       },
     },
@@ -84,6 +90,6 @@
   </script>
   
   <style scoped>
-  /* Estilos para a gestão do cliente */
+  /* Adicione aqui seus estilos para a gestão do cliente */
   </style>
   
