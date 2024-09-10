@@ -4,8 +4,10 @@
   
       <!-- Verifica se os dados do cliente foram carregados corretamente -->
       <div v-if="cliente">
+    
         <div class="card">
           <div class="card-body">
+            
             <h5 class="card-title">Dados do Cliente</h5> <br>
             <p><strong>Nome:</strong> {{ cliente.nome }}</p>
             <p><strong>Email:</strong> {{ cliente.email }}</p>
@@ -44,14 +46,19 @@
       };
     },
     created() {
-      // Verifica se os dados do cliente foram passados pela rota
-      if (this.$route.params.cliente) {
-        this.cliente = this.$route.params.cliente;
-      } else {
-        // Lógica alternativa para carregar o cliente, se necessário
-        console.error("Dados do cliente não encontrados.");
-      }
-    },
+  const clienteId = this.$route.params.clienteId;
+
+  if (clienteId) {
+    axios.get(`http://localhost:3000/clientes/${clienteId}`)
+      .then(response => {
+        this.cliente = response.data;
+      })
+      .catch(error => {
+        this.erro = 'Erro ao carregar cliente.';
+      });
+  }
+}
+,
     methods: {
       editarCliente() {
         this.editando = true;

@@ -76,6 +76,21 @@ app.get('/clientes/email/:email', (req, res) => {
     });
   });
   
+// Rota para buscar um cliente por ID// Rota para buscar um cliente por email
+app.get('/clientes/:id', (req, res) => {
+  const { email } = req.params;
+  const sql = 'SELECT * FROM clientes WHERE id = ?';
+  db.query(sql, [email], (err, results) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else if (results.length === 0) {
+      res.status(404).json({ error: 'Cliente não encontrado' });
+    } else {
+      res.json(results[0]); // Retorna o primeiro cliente encontrado
+    }
+  });
+});
+
 
 // Rota para atualizar um cliente com criptografia de senha
 app.put('/clientes/:id', (req, res) => {

@@ -6,6 +6,7 @@ import ListarView from '../views/listar.vue'
 import Clientes from '../views/clientes.vue'
 import Login from '../views/login.vue'
 import ClienteCrud from '../views/ClienteCrud.vue'
+
 const routes = [
   { path: '/', component: HomeView },
   { path: '/about', component: AboutView },

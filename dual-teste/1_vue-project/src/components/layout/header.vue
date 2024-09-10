@@ -59,22 +59,19 @@ export default {
   },
   methods: {
     async buscarCliente() {
-      try {
-        // Faz a requisição para buscar o cliente pelo email
-        const response = await axios.get(`http://localhost:3000/clientes/email/${this.email}`);
+  try {
+    const response = await axios.get(`http://localhost:3000/clientes/email/${this.email}`);
 
-        // Verifica se o cliente foi encontrado
-        if (response.data) {
-          const cliente = response.data;
-          this.$router.push({ name: 'ClienteCrud', params: { cliente } }); // Redireciona para ClienteCrud com os dados do cliente
-        } else {
-          this.erro = 'Cliente não encontrado!';
-          alert('Cliente não encontrado!');
-        }
-      } catch (error) {
-        this.erro = 'Erro ao buscar cliente. Tente novamente.';
-      }
-    },
+    if (response.data) {
+      const cliente = response.data;
+      this.$router.push({ name: 'ClienteCrud', params: { clienteId: cliente.id } });
+    } else {
+      this.erro = 'Cliente não encontrado!';
+    }
+  } catch (error) {
+    this.erro = 'Erro ao buscar cliente. Tente novamente.';
+  }
+},
   },
 };
 </script>
