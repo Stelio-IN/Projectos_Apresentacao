@@ -76,11 +76,11 @@ app.get('/clientes/email/:email', (req, res) => {
     });
   });
   
-// Rota para buscar um cliente por ID// Rota para buscar um cliente por email
-app.get('/clientes/:id', (req, res) => {
-  const { email } = req.params;
+// Rota para buscar um cliente por ID
+app.get('/clientes/id/:id', (req, res) => {
+  const { id } = req.params;
   const sql = 'SELECT * FROM clientes WHERE id = ?';
-  db.query(sql, [email], (err, results) => {
+  db.query(sql, [id], (err, results) => {
     if (err) {
       res.status(500).json({ error: err.message });
     } else if (results.length === 0) {

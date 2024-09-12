@@ -1,24 +1,16 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-// export default function HelloComponent({nome}:helloProps) {
-//     return (
-//         <View>
-//             <Text>Olá {nome}</Text>
-//         </View>
-//     );
-// }
-export default function HelloComponent() {
+type HelloProps = {
+    nome: string;
+    // o ponto de interrogação indica que podemos receber esse parâmetro ou não
+    idade?: number;
+};
+
+export default function HelloComponent({ nome }: HelloProps) {
     return (
         <View>
-            <Text>Olá</Text>
+            <Text>Olásad {nome}</Text>
         </View>
     );
-}
-
-
-declare type helloProps = {
-    nome: string,
-    // o ponto de interrogacao dita que podemos receber esse paramentro ou nao 
-    idade?: number
 }
