@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
-import router from './routes/productRouter.js';
+import routerProduct from './routes/productRouter.js';
+import routerReview from './routes/reviewRouter.js';
 
 const app = express();
 
@@ -17,7 +18,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Rotas
-app.use('/api/products', router);
+app.use('/api/products', routerProduct);
+app.use('/api/reviews', routerReview);
 
 // API de teste
 app.get('/', (req, res) => {

@@ -2,7 +2,6 @@ import db from '../models/index.js'; // Use import instead of require
 
 // Create main model
 const Product = db.products;
-const Review = db.reviews; // Supondo que você esteja usando 'reviews' também
 
 // 1. Create product
 const addProduct = async (req, res) => {
