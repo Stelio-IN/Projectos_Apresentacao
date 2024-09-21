@@ -1,0 +1,10 @@
+Para o servidor 
+{
+	npm init -y  -> Framework para criar servidores web
+	npm install mysql2 -> Driver para conectar-se ao MySQL
+	npm install cors -> Middleware para habilitar CORS (Cross-Origin Resource Sharing)
+	npm install body-parser -> Middleware para analisar o corpo das requisições HTTP (embora express já tenha uma função similar embutida a partir da versão 4.16.0).
+	
+	
+
+}
