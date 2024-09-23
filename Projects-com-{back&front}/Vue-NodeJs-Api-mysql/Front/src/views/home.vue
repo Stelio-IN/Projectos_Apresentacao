@@ -18,15 +18,12 @@ export default {
     setup() {
         const counterStore = useCounterStore();
         const count = computed(() => counterStore.count);
-
         return {
             count,
             incrementCounter: counterStore.increment,
             decrementCounter: counterStore.decrement
         }
-
     }
-
 }
 import { computed } from 'vue';
 import { useCounterStore } from '../stores/counter';
