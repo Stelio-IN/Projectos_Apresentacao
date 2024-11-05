@@ -1,75 +1,75 @@
-// controllers/userController.js
+
 import db from '../models/index.js';
 
-// Criar modelo principal
-const User = db.users;
+const User = db.User;
 
-const addUser = async (req, res) => {
-    const info = {
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password
-    };
-    try {
-        const user = await User.create(info);
-        res.status(201).json({ message: 'User created successfully', user });
-    } catch (error) {
-        res.status(500).json({ error: "Erro cadastrando usuário", error });
+const createUser = async(req,res) =>{
+    try{
+        const user = await User.create(req.body);
+        res.status(201).json(user);
+    }catch(error){
+        res.status(500).json({error: error.message});
     }
 };
 
-const getUserById = async (req, res) => {
-    try {
+// Obter modelo principal por ID
+
+const getUserById = async(req,res) =>{
+    try{
         const user = await User.findByPk(req.params.id);
-        if (!user) {
-            res.status(404).json({ message: 'User not found' });
-        } else {
-            res.status(200).json({ user });
+        if(!user){
+            return res.status(404).json({message: 'User not found'});
         }
-    } catch (error) {
-        res.status(500).json({ error: "Erro buscando usuário", error });
+        res.status(200).json(user);
+    }catch(error){
+        res.status(500).json({error: error.message});
     }
 };
 
-const updateUser = async (req, res) => {
-    try {
+// Atualizar modelo principal por ID
+
+const updateUser = async(req,res) =>{
+    try{
         const user = await User.findByPk(req.params.id);
-        if (!user) {
-            res.status(404).json({ message: 'User not found' });
-        } else {
-            await user.update(req.body);
-            res.status(200).json({ message: 'User updated successfully', user });
+        if(!user){
+            return res.status(404).json({message: 'User not found'});
         }
-    } catch (error) {
-        res.status(500).json({ error: "Erro atualizando usuário", error });
+        await user.update(req.body);
+        res.status(200).json(user);
+    }catch(error){
+        res.status(500).json({error: error.message});
     }
 };
 
-const deleteUser = async (req, res) => {
-    try {
+// Deletar modelo principal por ID
+
+const deleteUser = async(req,res) =>{
+    try{
         const user = await User.findByPk(req.params.id);
-        if (!user) {
-            res.status(404).json({ message: 'User not found' });
-        } else {
-            await user.destroy();
-            res.status(200).json({ message: 'User deleted successfully' });
+        if(!user){
+            return res.status(404).json({message: 'User not found'});
         }
-    } catch (error) {
-        res.status(500).json({ error: "Erro deletando usuário", error });
+        await user.destroy();
+        res.status(204).send();
+    }catch(error){
+        res.status(500).json({error: error.message});
     }
 };
 
-const getAllUsers = async (req, res) => {
-    try {
+// Obter todos os modelos principais
+
+const getAllUsers = async(req,res) =>{
+    try{
         const users = await User.findAll();
-        res.status(200).json({ users });
-    } catch (error) {
-        res.status(500).json({ error: "Erro buscando usuários", error });
+        res.status(200).json(users);
+    }catch(error){
+        res.status(500).json({error: error.message});
     }
 };
+
 
 export default {
-    addUser,
+    createUser,
     getUserById,
     updateUser,
     deleteUser,

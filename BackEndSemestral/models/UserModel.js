@@ -1,22 +1,25 @@
-// models/UserModel.js
+// UserModel.js
 export default (sequelize, DataTypes) => {
-  const User = sequelize.define("User", {
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
+  return sequelize.define('User', {
+    user_id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
     },
-    email: {
+    username: {
       type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        len: [8, 255],
-      },
+   
     },
+    email: {
+      type: DataTypes.STRING,
+      unique: true,
+    }
+  }, {
+    tableName: 'User',
+    timestamps: true, // Ative timestamps para gerenciar createdAt e updatedAt automaticamente
+    underscored: true // Isso irá usar snake_case para os nomes das colunas
   });
-  return User;
 };
