@@ -59,7 +59,7 @@ try {
   console.log('Conexão bem-sucedida com o banco de dados.');
 
   // Sincroniza todas as tabelas, se não existirem
-  await sequelize.sync({ force: true }); // Use 'force: true' para recriar as tabelas. Cuidado: isso exclui dados existentes.
+  await sequelize.sync({ force: false }); // Use 'force: true' para recriar as tabelas. Cuidado: isso exclui dados existentes.
   console.log('Tabelas sincronizadas com sucesso.');
 } catch (error) {
   console.error('Erro ao conectar ao banco de dados:', error);
