@@ -10,3 +10,4 @@ router.put('/:id', colorController.updateColor);
 router.delete('/:id', colorController.deleteColor);
 
 export default router;
+ 
